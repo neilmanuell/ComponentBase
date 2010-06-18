@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+<includeClasses>
+<classEntry path="uk.co.revisual.components.base.BaseComponent"/>
+<classEntry path="uk.co.revisual.components.base.BaseComponentContainer"/>
+<classEntry path="uk.co.revisual.components.core.Component"/>
+<classEntry path="uk.co.revisual.components.core.ComponentContainer"/>
+<classEntry path="uk.co.revisual.components.core.PropertyBag"/>
+<classEntry path="uk.co.revisual.components.events.PropertyBagEvent"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
+</flexLibProperties>
