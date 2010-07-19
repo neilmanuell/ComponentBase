@@ -1,6 +1,6 @@
 package uk.co.revisual.components.core
 {
-	public interface PropertyBag
+	public interface IPropertyBag
 	{
 		function hasProperty( key:String ):Boolean;
 		function setProperty( key:String, value:Object ):Object;

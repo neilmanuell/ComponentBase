@@ -1,10 +1,10 @@
 package uk.co.revisual.components.base
 {
-	import uk.co.revisual.components.core.Component;
-	import uk.co.revisual.components.core.ComponentContainer;
-	import uk.co.revisual.creation.Destructable;
+	import uk.co.revisual.components.core.IComponent;
+	import uk.co.revisual.components.core.IComponentContainer;
+	import uk.co.revisual.creation.IDestructable;
 	
-	public class BaseComponentContainer extends BaseComponent implements ComponentContainer
+	public class BaseComponentContainer extends BaseComponent implements IComponentContainer
 	{
 		private var _components:Array;
 		
@@ -14,30 +14,30 @@ package uk.co.revisual.components.base
    	
 		public function get descNum():int{
 			var desc:int = childNum;
-    	 	for each(var c:Component in components){
-    	 		if(c is ComponentContainer)desc += ComponentContainer(c).descNum; 
+    	 	for each(var c:IComponent in components){
+    	 		if(c is IComponentContainer)desc += IComponentContainer(c).descNum;
     	 	}
  			return desc;
 		}
    	      
 		override public  function destroy():void{
-			while (components.length) Destructable( components.pop() ).destroy();
+			while (components.length) IDestructable( components.pop() ).destroy();
            _components = null;
            super.destroy();
     	}
      
-		public function addComponent(component:Component, name:String = null):void{
+		public function addComponent(component:IComponent, name:String = null):void{
 			if( !doAddComponent( component, name ) ) return;        
 			doResetComponents( component, ADDED );
 		}
     
-		public function removeComponent(component:Component):void{
+		public function removeComponent(component:IComponent):void{
 			if( !doRemoveComponent(component) )return;
 			doResetComponents( component, REMOVED );
 		}
 		
 		public function flush():void{
-			for each(var component:Component in components){
+			for each(var component:IComponent in components){
 				removeComponent( component );
 			}
 		}
@@ -46,8 +46,8 @@ package uk.co.revisual.components.base
 			return ( getComponentByName( name ) != null );
 		}
     
-		public function getComponentByName(name:String):Component{
-			for each(var component:Component in components){
+		public function getComponentByName(name:String):IComponent{
+			for each(var component:IComponent in components){
 				if (component.name == name)return component;
 			}
 			return null;
@@ -55,38 +55,38 @@ package uk.co.revisual.components.base
   
 		public  function getComponentsByType(componentType:Class):Array{
 			var a:Array = [];
-			for each(var component:Component in components) {
+			for each(var component:IComponent in components) {
 				if (component is componentType) a.push(component);
 			}
 			return a;
 		}
     
-		public  function getComponentAt( index:int ):Component{
-			return Component( components[ index ] );
+		public  function getComponentAt( index:int ):IComponent{
+			return IComponent( components[ index ] );
 		}
 		
-		public function getNextComponent(component:Component):Component{
+		public function getNextComponent(component:IComponent):IComponent{
 			var i:int = getComponentIndex( component );
-			return Component( components[i+1] );
+			return IComponent( components[i+1] );
 		}
 		
-		public function getPreviousComponent(component:Component):Component{
+		public function getPreviousComponent(component:IComponent):IComponent{
 			var i:int = getComponentIndex( component );
-			return Component( components[i-1] );
+			return IComponent( components[i-1] );
 		}
 		
-		public function getComponentIndex(component:Component):int{
+		public function getComponentIndex(component:IComponent):int{
 			var n:int = 0;
-			var c:Component;
+			var c:IComponent;
 			while ( n < components.length ){
-				c = Component( components[n] );
+				c = IComponent( components[n] );
 				if( c === component )return n;
 				n++;
 			}
 			return -1;
 		}
 		
-		private function doAddComponent(component:Component, name:String):Boolean{
+		private function doAddComponent(component:IComponent, name:String):Boolean{
 			if( component.isRegistered )return false;
 			if( contains( name ) ) return false;
 			components.push( component );
@@ -94,7 +94,7 @@ package uk.co.revisual.components.base
 			return true;
 		}
 		
-		private function doRemoveComponent(component:Component):Boolean{
+		private function doRemoveComponent(component:IComponent):Boolean{
 			if( !component.isRegistered )return false;
 			if( !contains( component.name ) ) return false;
 			component.unregister();
@@ -102,8 +102,8 @@ package uk.co.revisual.components.base
 			return true;
 		}
   		
-		private function doResetComponents( component:Component, action:String):void {
-			for each(var c:Component in components){
+		private function doResetComponents( component:IComponent, action:String):void {
+			for each(var c:IComponent in components){
 				if( c != component )c.reset( component, action );
 			}
 			

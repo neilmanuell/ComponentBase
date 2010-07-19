@@ -1,6 +1,6 @@
 package uk.co.revisual.creation
 {
-	public interface Destructable
+	public interface IDestructable
 	{
 		function destroy():void;
 	}
