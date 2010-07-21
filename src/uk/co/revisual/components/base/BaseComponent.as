@@ -65,7 +65,7 @@ package uk.co.revisual.components.base
 		public function setProperty( key:String, value:Object ):Object{
 			var oldValue:Object = propertyBag[key];
 			propertyBag[key] = value;
-			dispatchPropertySetEvent( key, oldValue, value );
+			dispatchPropertySetEvent( key, value, oldValue );
 			return value;
 		}
 		
