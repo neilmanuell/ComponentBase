@@ -1,0 +1,1 @@
+Just think I should declare that this little framework was influenced by the PushButton Engine IEntityComponent.
