@@ -3,7 +3,7 @@ package uk.co.revisual.components.core
 {
 	import flash.events.*;
 	
-	import uk.co.revisual.creation.IDestructable;
+	import uk.co.revisual.components.core.IDestructable;
 	
    	public interface IComponent
    	{

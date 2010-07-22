@@ -1,4 +1,4 @@
-package uk.co.revisual.creation
+package uk.co.revisual.components.core
 {
 	public interface IDestructable
 	{

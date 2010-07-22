@@ -2,7 +2,7 @@ package uk.co.revisual.components.base
 {
 	import uk.co.revisual.components.core.IComponent;
 	import uk.co.revisual.components.core.IComponentContainer;
-	import uk.co.revisual.creation.IDestructable;
+	import uk.co.revisual.components.core.IDestructable;
 	
 	public class BaseComponentContainer extends BaseComponent implements IComponentContainer
 	{

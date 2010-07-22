@@ -8,7 +8,7 @@ package uk.co.revisual.components.base
 	import uk.co.revisual.components.core.IComponentContainer;
 	import uk.co.revisual.components.core.IPropertyBag;
 	import uk.co.revisual.components.events.PropertyBagEvent;
-	import uk.co.revisual.creation.IDestructable;
+	import uk.co.revisual.components.core.IDestructable;
 	
    public class BaseComponent extends EventDispatcher implements IComponent, IPropertyBag, IEventDispatcher, IDestructable{
    	

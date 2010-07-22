@@ -3,7 +3,7 @@ package uk.co.revisual.components.core
 {
 	import flash.events.IEventDispatcher;
 	
-	import uk.co.revisual.creation.IDestructable;
+	import uk.co.revisual.components.core.IDestructable;
 	
   
    public interface IComponentContainer extends IPropertyBag, IEventDispatcher, IDestructable
