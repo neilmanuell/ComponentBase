@@ -50,13 +50,14 @@ public class FlushPropertyTest {
 
 	public function flushTest():void {
 		var count:int;
+		var o:Object
 		_propertyBag.test1 = _o1;
 		_propertyBag.test2 = _o2;
 		_propertyBag.test3 = _o3;
 		_propertyBag.test4 = _o4;
 		_propertyBag.test5 = _o5;
 
-		for each ( var o:Object in _propertyBag ){
+		for each ( o in _propertyBag ){
 			Assert.assertStrictlyEquals("Assert A" + count, _testItems[ count ], o  );
 			count++;
 		}
@@ -64,7 +65,7 @@ public class FlushPropertyTest {
 		_propertyBag.flush();
 
 		count = 0
-		for each ( var o:Object in _propertyBag ){
+		for each ( o in _propertyBag ){
 			Assert.fail("All properties should have been flushed");
 			count++;
 		}
@@ -75,8 +76,9 @@ public class FlushPropertyTest {
 
 	private function onFlush(event:PropertyBagEvent):void {
 		_testEventFired = true;
-		//Assert.assertEquals( "Assert B1", "test", event.key );
-		//Assert.assertStrictlyEquals( "Assert 7", _o, event.oldValue );
+		Assert.assertNull( "Assert C1", event.key );
+		Assert.assertNull( "Assert C2", event.newValue );
+		Assert.assertNull( "Assert C3", event.oldValue );
 	}
 }
 }
