@@ -14,9 +14,9 @@ package uk.co.revisual.components.core
      
 		function get isRegistered():Boolean;
       
-		function register( parent:IComponentContainer, name:String):void;
+		function register( parent:IComponentContainer, name:String):Boolean;
       
-		function unregister():void;
+		function unregister():Boolean;
       
 		function reset( component:IComponent, action:String ):void;
 		

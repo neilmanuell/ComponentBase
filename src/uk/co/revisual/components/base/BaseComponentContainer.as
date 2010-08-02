@@ -26,9 +26,10 @@ package uk.co.revisual.components.base
            super.destroy();
     	}
      
-		public function addComponent(component:IComponent, name:String = null):void{
-			if( !doAddComponent( component, name ) ) return;        
+		public function addComponent(component:IComponent, name:String = null):Boolean{
+			if( !doAddComponent( component, name ) ) return false;
 			doResetComponents( component, ADDED );
+			return true;
 		}
     
 		public function removeComponent(component:IComponent):void{

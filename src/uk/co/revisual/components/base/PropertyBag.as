@@ -82,11 +82,12 @@ public dynamic class PropertyBag extends Proxy {
 	}
 
 
-	public function flush():void{
+	public function flush():Boolean{
 		_items = {};
 		_itemNames = [];
 		var event:PropertyBagEvent = new PropertyBagEvent(  PropertyBagEvent.FLUSH ) ;
 		dispatch( event );
+		return true;
 	}
 
 	private function dispatch(event:PropertyBagEvent):void {

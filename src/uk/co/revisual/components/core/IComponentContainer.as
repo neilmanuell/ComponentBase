@@ -14,7 +14,7 @@ package uk.co.revisual.components.core
      
 	
      
-		function addComponent(component:IComponent, name:String=null):void;
+		function addComponent(component:IComponent, name:String=null):Boolean;
 		function removeComponent(component:IComponent):void;
 		function flush():void;
 

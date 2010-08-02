@@ -1,9 +1,11 @@
 package uk.co.revisual.components.core
 {
+import uk.co.revisual.components.base.PropertyBag;
+
 public interface IPropertyBag
 	{
-		function get properties():Object;
-		function flushProperties(  ):void;
+		function get properties():PropertyBag;
+		function flushProperties(  ):Boolean;
         
 	}
 }
