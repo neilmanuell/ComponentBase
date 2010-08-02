@@ -11,67 +11,67 @@ import uk.co.revisual.components.core.IPropertyBag;
 
 public class BaseComponent extends EventDispatcher implements IComponent, IPropertyBag, IEventDispatcher, IDestructable{
 
-    protected static const ADDED:String = "added";
-    protected static const REMOVED:String = "removed";
+	protected static const ADDED:String = "added";
+	protected static const REMOVED:String = "removed";
 
-    private static const REGISTER_ERROR:String = "This component has already been registered";
-    private static const UNREGISTER_ERROR:String = "This component is not registered in this Container";
 
-    private var _propertyBag:PropertyBag;
-    private var _client:IComponentContainer;
-    private var _name:String;
+	private var _propertyBag:PropertyBag;
+	private var _client:IComponentContainer;
+	private var _name:String;
 
-    public function get client():IComponentContainer{ return _client; }
+	public function get client():IComponentContainer{ return _client; }
 
-    public function get name():String{ return _name; }
+	public function get name():String{ return _name; }
 
-    public function get isRegistered():Boolean{ return ( _client != null ); }
+	public function get isRegistered():Boolean{ return ( _client != null ); }
 
-    public function destroy():void{
-        flushProperties();
-        if(isRegistered)unregister();
-    }
+	public function get properties():PropertyBag {
+		if( _propertyBag == null ) _propertyBag = new PropertyBag( this );
+		return _propertyBag;
+	}
 
-    public function register( client:IComponentContainer, name:String):void{
-        if(isRegistered) throw new Error(REGISTER_ERROR);
-        _name = name;
-        _client = client;
-        onRegister();
-    }
+	public function register( client:IComponentContainer, name:String):Boolean{
+		if(isRegistered)return false;
+		_name = name;
+		_client = client;
+		onRegister();
+		return true;
+	}
 
-    public function unregister():void{
-        if(!isRegistered) throw new Error(UNREGISTER_ERROR);
-        onUnregister();
-        _name = null;
-        _client = null;
-    }
+	public function unregister():Boolean{
+		if(!isRegistered)return false;
+		onUnregister();
+		_name = null;
+		_client = null;
+		return true;
+	}
+	
+	public function reset( component:IComponent, action:String ):void{
+		if(action == BaseComponent.ADDED)onResetAdded( component );
+		else  if(action == BaseComponent.REMOVED)onResetRemoved( component );
+	}
 
-    public function get properties():Object {
-        if( _propertyBag == null ) _propertyBag = new PropertyBag( this );
-        return _propertyBag;
-    }
+	public function flushProperties():Boolean{
+		if(_propertyBag) return _propertyBag.flush();
+		return false;
+	}
 
-    public function reset( component:IComponent, action:String ):void{
-        if(action == BaseComponent.ADDED)onResetAdded( component );
-        else  if(action == BaseComponent.REMOVED)onResetRemoved( component );
-    }
+	public function destroy():void{
+		flushProperties();
+	}
 
-    public function flushProperties():void{
-        _propertyBag.flush();
-    }
+	protected function onRegister():void{ }
 
-    protected function onRegister():void{ }
+	protected function onUnregister():void{ }
 
-    protected function onUnregister():void{ }
+	protected function onResetAdded( component:IComponent ):void{ }
 
-    protected function onResetAdded( component:IComponent ):void{ }
+	protected function onResetRemoved( component:IComponent ):void{ }
 
-    protected function onResetRemoved( component:IComponent ):void{ }
-
-    private function get propertyBag():Object{
-        if(!_propertyBag)flushProperties();
-        return _propertyBag
-    }
+	private function get propertyBag():Object{
+		if(!_propertyBag)flushProperties();
+		return _propertyBag
+	}
 
 
 }
