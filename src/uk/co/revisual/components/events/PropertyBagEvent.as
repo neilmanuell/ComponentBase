@@ -32,7 +32,7 @@ public class PropertyBagEvent extends Event
     }
 
     override public function clone():Event{
-        return new PropertyBagEvent( type, _key, _oldValue, _newValue)
+        return new PropertyBagEvent( type, _key, _newValue, _oldValue)
     }
 
 }
